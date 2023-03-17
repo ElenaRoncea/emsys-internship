@@ -1,0 +1,250 @@
+
+Tema1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000001de  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000018a  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000001de  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000210  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000038  00000000  00000000  00000250  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000009d1  00000000  00000000  00000288  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000006e7  00000000  00000000  00000c59  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000358  00000000  00000000  00001340  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000054  00000000  00000000  00001698  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003a0  00000000  00000000  000016ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000048  00000000  00000000  00001a8c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  00001ad4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 59 00 	call	0xb2	; 0xb2 <main>
+  78:	0c 94 c3 00 	jmp	0x186	; 0x186 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <pinSet>:
+}
+
+
+void pinSet(volatile uint8_t *port, uint8_t pin)
+{
+	*port |= 1 << pin;
+  80:	fc 01       	movw	r30, r24
+  82:	40 81       	ld	r20, Z
+  84:	21 e0       	ldi	r18, 0x01	; 1
+  86:	30 e0       	ldi	r19, 0x00	; 0
+  88:	02 c0       	rjmp	.+4      	; 0x8e <pinSet+0xe>
+  8a:	22 0f       	add	r18, r18
+  8c:	33 1f       	adc	r19, r19
+  8e:	6a 95       	dec	r22
+  90:	e2 f7       	brpl	.-8      	; 0x8a <pinSet+0xa>
+  92:	24 2b       	or	r18, r20
+  94:	20 83       	st	Z, r18
+  96:	08 95       	ret
+
+00000098 <pinReset>:
+}
+
+void pinReset(volatile uint8_t *port, uint8_t pin)
+{
+  98:	fc 01       	movw	r30, r24
+	*port &= ~(1 << pin);
+  9a:	90 81       	ld	r25, Z
+  9c:	21 e0       	ldi	r18, 0x01	; 1
+  9e:	30 e0       	ldi	r19, 0x00	; 0
+  a0:	02 c0       	rjmp	.+4      	; 0xa6 <pinReset+0xe>
+  a2:	22 0f       	add	r18, r18
+  a4:	33 1f       	adc	r19, r19
+  a6:	6a 95       	dec	r22
+  a8:	e2 f7       	brpl	.-8      	; 0xa2 <pinReset+0xa>
+  aa:	20 95       	com	r18
+  ac:	29 23       	and	r18, r25
+  ae:	20 83       	st	Z, r18
+  b0:	08 95       	ret
+
+000000b2 <main>:
+void pinSet(volatile uint8_t *port, uint8_t pin);
+void pinReset(volatile uint8_t *port, uint8_t pin);
+
+int main(void)
+{
+    DDRB = 0xFF;
+  b2:	8f ef       	ldi	r24, 0xFF	; 255
+  b4:	84 b9       	out	0x04, r24	; 4
+	DDRC = 0xFF;
+  b6:	87 b9       	out	0x07, r24	; 7
+	DDRD = 0xFF;
+  b8:	8a b9       	out	0x0a, r24	; 10
+	PORTB = 0x00;
+  ba:	15 b8       	out	0x05, r1	; 5
+	PORTC = 0x00;
+  bc:	18 b8       	out	0x08, r1	; 8
+	PORTD = 0x00;
+  be:	1b b8       	out	0x0b, r1	; 11
+    while (1) 
+    {
+		pinSet(&PORTD, PIND4);
+  c0:	64 e0       	ldi	r22, 0x04	; 4
+  c2:	8b e2       	ldi	r24, 0x2B	; 43
+  c4:	90 e0       	ldi	r25, 0x00	; 0
+  c6:	0e 94 40 00 	call	0x80	; 0x80 <pinSet>
+		pinSet(&PORTD, PIND6);
+  ca:	66 e0       	ldi	r22, 0x06	; 6
+  cc:	8b e2       	ldi	r24, 0x2B	; 43
+  ce:	90 e0       	ldi	r25, 0x00	; 0
+  d0:	0e 94 40 00 	call	0x80	; 0x80 <pinSet>
+		pinSet(&PORTB, PINB0);
+  d4:	60 e0       	ldi	r22, 0x00	; 0
+  d6:	85 e2       	ldi	r24, 0x25	; 37
+  d8:	90 e0       	ldi	r25, 0x00	; 0
+  da:	0e 94 40 00 	call	0x80	; 0x80 <pinSet>
+		pinSet(&PORTB, PINB2);
+  de:	62 e0       	ldi	r22, 0x02	; 2
+  e0:	85 e2       	ldi	r24, 0x25	; 37
+  e2:	90 e0       	ldi	r25, 0x00	; 0
+  e4:	0e 94 40 00 	call	0x80	; 0x80 <pinSet>
+		
+		pinReset(&PORTD, PIND5);
+  e8:	65 e0       	ldi	r22, 0x05	; 5
+  ea:	8b e2       	ldi	r24, 0x2B	; 43
+  ec:	90 e0       	ldi	r25, 0x00	; 0
+  ee:	0e 94 4c 00 	call	0x98	; 0x98 <pinReset>
+		pinReset(&PORTD, PIND7);
+  f2:	67 e0       	ldi	r22, 0x07	; 7
+  f4:	8b e2       	ldi	r24, 0x2B	; 43
+  f6:	90 e0       	ldi	r25, 0x00	; 0
+  f8:	0e 94 4c 00 	call	0x98	; 0x98 <pinReset>
+		pinReset(&PORTB, PINB1);
+  fc:	61 e0       	ldi	r22, 0x01	; 1
+  fe:	85 e2       	ldi	r24, 0x25	; 37
+ 100:	90 e0       	ldi	r25, 0x00	; 0
+ 102:	0e 94 4c 00 	call	0x98	; 0x98 <pinReset>
+		pinReset(&PORTB, PINB3);
+ 106:	63 e0       	ldi	r22, 0x03	; 3
+ 108:	85 e2       	ldi	r24, 0x25	; 37
+ 10a:	90 e0       	ldi	r25, 0x00	; 0
+ 10c:	0e 94 4c 00 	call	0x98	; 0x98 <pinReset>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 110:	2f ef       	ldi	r18, 0xFF	; 255
+ 112:	83 ed       	ldi	r24, 0xD3	; 211
+ 114:	90 e3       	ldi	r25, 0x30	; 48
+ 116:	21 50       	subi	r18, 0x01	; 1
+ 118:	80 40       	sbci	r24, 0x00	; 0
+ 11a:	90 40       	sbci	r25, 0x00	; 0
+ 11c:	e1 f7       	brne	.-8      	; 0x116 <main+0x64>
+ 11e:	00 c0       	rjmp	.+0      	; 0x120 <main+0x6e>
+ 120:	00 00       	nop
+		
+		_delay_ms(1000);
+		
+		pinReset(&PORTD, PIND4);
+ 122:	64 e0       	ldi	r22, 0x04	; 4
+ 124:	8b e2       	ldi	r24, 0x2B	; 43
+ 126:	90 e0       	ldi	r25, 0x00	; 0
+ 128:	0e 94 4c 00 	call	0x98	; 0x98 <pinReset>
+		pinReset(&PORTD, PIND6);
+ 12c:	66 e0       	ldi	r22, 0x06	; 6
+ 12e:	8b e2       	ldi	r24, 0x2B	; 43
+ 130:	90 e0       	ldi	r25, 0x00	; 0
+ 132:	0e 94 4c 00 	call	0x98	; 0x98 <pinReset>
+		pinReset(&PORTB, PINB0);
+ 136:	60 e0       	ldi	r22, 0x00	; 0
+ 138:	85 e2       	ldi	r24, 0x25	; 37
+ 13a:	90 e0       	ldi	r25, 0x00	; 0
+ 13c:	0e 94 4c 00 	call	0x98	; 0x98 <pinReset>
+		pinReset(&PORTB, PINB2);
+ 140:	62 e0       	ldi	r22, 0x02	; 2
+ 142:	85 e2       	ldi	r24, 0x25	; 37
+ 144:	90 e0       	ldi	r25, 0x00	; 0
+ 146:	0e 94 4c 00 	call	0x98	; 0x98 <pinReset>
+		
+		pinSet(&PORTD, PIND5);
+ 14a:	65 e0       	ldi	r22, 0x05	; 5
+ 14c:	8b e2       	ldi	r24, 0x2B	; 43
+ 14e:	90 e0       	ldi	r25, 0x00	; 0
+ 150:	0e 94 40 00 	call	0x80	; 0x80 <pinSet>
+		pinSet(&PORTD, PIND7);
+ 154:	67 e0       	ldi	r22, 0x07	; 7
+ 156:	8b e2       	ldi	r24, 0x2B	; 43
+ 158:	90 e0       	ldi	r25, 0x00	; 0
+ 15a:	0e 94 40 00 	call	0x80	; 0x80 <pinSet>
+		pinSet(&PORTB, PINB1);
+ 15e:	61 e0       	ldi	r22, 0x01	; 1
+ 160:	85 e2       	ldi	r24, 0x25	; 37
+ 162:	90 e0       	ldi	r25, 0x00	; 0
+ 164:	0e 94 40 00 	call	0x80	; 0x80 <pinSet>
+		pinSet(&PORTB, PINB3);
+ 168:	63 e0       	ldi	r22, 0x03	; 3
+ 16a:	85 e2       	ldi	r24, 0x25	; 37
+ 16c:	90 e0       	ldi	r25, 0x00	; 0
+ 16e:	0e 94 40 00 	call	0x80	; 0x80 <pinSet>
+ 172:	2f ef       	ldi	r18, 0xFF	; 255
+ 174:	83 ed       	ldi	r24, 0xD3	; 211
+ 176:	90 e3       	ldi	r25, 0x30	; 48
+ 178:	21 50       	subi	r18, 0x01	; 1
+ 17a:	80 40       	sbci	r24, 0x00	; 0
+ 17c:	90 40       	sbci	r25, 0x00	; 0
+ 17e:	e1 f7       	brne	.-8      	; 0x178 <main+0xc6>
+ 180:	00 c0       	rjmp	.+0      	; 0x182 <main+0xd0>
+ 182:	00 00       	nop
+ 184:	9d cf       	rjmp	.-198    	; 0xc0 <main+0xe>
+
+00000186 <_exit>:
+ 186:	f8 94       	cli
+
+00000188 <__stop_program>:
+ 188:	ff cf       	rjmp	.-2      	; 0x188 <__stop_program>
