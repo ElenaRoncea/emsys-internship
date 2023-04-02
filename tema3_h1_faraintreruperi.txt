@@ -1,0 +1,81 @@
+/*
+ * Tema3_isr.c
+ *
+ * Created: 26.03.2023 18:35:02
+ * Author : Elena
+ */ 
+#define F_CPU 16000000UL
+#define PORT_LED0 PORTD
+#define PORT_LED1 PORTD
+#define PORT_BUTTON PORTB
+#define PIN_LED0 PIND4
+#define PIN_LED1 PIND5
+#define PIN_BUTTON PINB3
+
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+
+void pinToggle(volatile uint8_t *port, uint8_t pin);
+void pinSet(volatile uint8_t *port, uint8_t pin);
+void pinReset(volatile uint8_t *port, uint8_t pin);
+void init_devices(void);
+
+
+
+int main(void)
+{
+	init_devices();
+	while (1) {
+		
+	pinToggle(&PORT_LED0, PIN_LED0);
+	_delay_ms(1000);
+	
+		if ( (PINB & (1 << PIN_BUTTON) ) == 0)
+		{
+			pinSet(&PORT_LED1, PIN_LED1);
+			//_delay_ms(1000);
+			
+		}
+		else
+		{
+			pinReset(&PORT_LED1, PIN_LED1);
+			//_delay_ms(1000);
+		}
+		
+	}
+}
+
+void pinToggle(volatile uint8_t *port, uint8_t pin)
+{
+	*port ^= 1 << pin;
+}
+
+void pinSet(volatile uint8_t *port, uint8_t pin)
+{
+	*port |= 1 << pin;
+}
+
+void pinReset(volatile uint8_t *port, uint8_t pin)
+{
+	*port &= ~(1 << pin);
+}
+
+
+void init_devices(void){
+	/*
+	DDRB &= ~(1 << PINB3);
+	PORTB |= (1 << PINB3);
+	
+	DDRD |= (1 << PIND5);
+	
+	DDRD |= (1<<PIND4);*/
+	
+	DDRB  = 0x00;
+	PORTB  = 0xFF;
+
+	DDRD  = 0xFF;
+	PORTD = 0x00;
+	
+}
