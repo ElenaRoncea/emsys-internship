@@ -1,0 +1,276 @@
+
+Tema5_timer.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000202  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000018e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000004  00800100  00800100  00000202  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000202  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000234  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000048  00000000  00000000  00000274  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000818  00000000  00000000  000002bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000006cc  00000000  00000000  00000ad4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000002b0  00000000  00000000  000011a0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000bc  00000000  00000000  00001450  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003a4  00000000  00000000  0000150c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000000cb  00000000  00000000  000018b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000038  00000000  00000000  0000197b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   8:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  10:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  14:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  18:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  1c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  20:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  24:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  28:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  2c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  30:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  34:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  38:	0c 94 70 00 	jmp	0xe0	; 0xe0 <__vector_14>
+  3c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  40:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  44:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  48:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  4c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  50:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  54:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  58:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  5c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  60:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  64:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_clear_bss>:
+  74:	21 e0       	ldi	r18, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	01 c0       	rjmp	.+2      	; 0x7e <.do_clear_bss_start>
+
+0000007c <.do_clear_bss_loop>:
+  7c:	1d 92       	st	X+, r1
+
+0000007e <.do_clear_bss_start>:
+  7e:	a4 30       	cpi	r26, 0x04	; 4
+  80:	b2 07       	cpc	r27, r18
+  82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
+  84:	0e 94 6d 00 	call	0xda	; 0xda <main>
+  88:	0c 94 c5 00 	jmp	0x18a	; 0x18a <_exit>
+
+0000008c <__bad_interrupt>:
+  8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000090 <pinToggle>:
+  
+}
+
+void pinToggle(volatile uint8_t *port, uint8_t pin)
+{
+	*port ^= 1 << pin;
+  90:	fc 01       	movw	r30, r24
+  92:	40 81       	ld	r20, Z
+  94:	21 e0       	ldi	r18, 0x01	; 1
+  96:	30 e0       	ldi	r19, 0x00	; 0
+  98:	02 c0       	rjmp	.+4      	; 0x9e <pinToggle+0xe>
+  9a:	22 0f       	add	r18, r18
+  9c:	33 1f       	adc	r19, r19
+  9e:	6a 95       	dec	r22
+  a0:	e2 f7       	brpl	.-8      	; 0x9a <pinToggle+0xa>
+  a2:	24 27       	eor	r18, r20
+  a4:	20 83       	st	Z, r18
+  a6:	08 95       	ret
+
+000000a8 <port_init>:
+}
+
+void port_init(void)
+{
+
+	DDRD  = 0xFF;
+  a8:	8f ef       	ldi	r24, 0xFF	; 255
+  aa:	8a b9       	out	0x0a, r24	; 10
+	PORTD = 0x00;
+  ac:	1b b8       	out	0x0b, r1	; 11
+  ae:	08 95       	ret
+
+000000b0 <timer0_init>:
+}
+
+
+void timer0_init(void){
+	//Put Timer0 in CTC Mode, no compare match output
+	TCCR0A = 0x00;
+  b0:	14 bc       	out	0x24, r1	; 36
+	TCCR0A = (1 << WGM01);
+  b2:	82 e0       	ldi	r24, 0x02	; 2
+  b4:	84 bd       	out	0x24, r24	; 36
+	
+	//Set the prescaler. This will divide the input frequency by 1024
+	TCCR0B = (1 << CS02) | (0 << CS01) | (1 << CS00);
+  b6:	85 e0       	ldi	r24, 0x05	; 5
+  b8:	85 bd       	out	0x25, r24	; 37
+
+	TCNT0 = 0x00;
+  ba:	16 bc       	out	0x26, r1	; 38
+	//The output frequency if Fclock / prescaler / OCR.
+	OCR0A = 0x9B; //156
+  bc:	8b e9       	ldi	r24, 0x9B	; 155
+  be:	87 bd       	out	0x27, r24	; 39
+	
+	//Enable Timer/Counter Output Compare Match Interrupt
+	TIMSK0 |= (1 << OCIE0A);
+  c0:	ee e6       	ldi	r30, 0x6E	; 110
+  c2:	f0 e0       	ldi	r31, 0x00	; 0
+  c4:	80 81       	ld	r24, Z
+  c6:	82 60       	ori	r24, 0x02	; 2
+  c8:	80 83       	st	Z, r24
+  ca:	08 95       	ret
+
+000000cc <init_devices>:
+	*port ^= 1 << pin;
+}
+
+void init_devices(void)
+{
+	cli();
+  cc:	f8 94       	cli
+	port_init();
+  ce:	0e 94 54 00 	call	0xa8	; 0xa8 <port_init>
+	timer0_init();
+  d2:	0e 94 58 00 	call	0xb0	; 0xb0 <timer0_init>
+	sei();
+  d6:	78 94       	sei
+  d8:	08 95       	ret
+
+000000da <main>:
+
+volatile int flag = 0;
+
+int main(void)
+{
+	init_devices();
+  da:	0e 94 66 00 	call	0xcc	; 0xcc <init_devices>
+  de:	ff cf       	rjmp	.-2      	; 0xde <main+0x4>
+
+000000e0 <__vector_14>:
+	TIMSK0 |= (1 << OCIE0A);
+	
+}
+
+ISR(TIMER0_COMPA_vect)
+{
+  e0:	1f 92       	push	r1
+  e2:	0f 92       	push	r0
+  e4:	0f b6       	in	r0, 0x3f	; 63
+  e6:	0f 92       	push	r0
+  e8:	11 24       	eor	r1, r1
+  ea:	2f 93       	push	r18
+  ec:	3f 93       	push	r19
+  ee:	4f 93       	push	r20
+  f0:	5f 93       	push	r21
+  f2:	6f 93       	push	r22
+  f4:	7f 93       	push	r23
+  f6:	8f 93       	push	r24
+  f8:	9f 93       	push	r25
+  fa:	af 93       	push	r26
+  fc:	bf 93       	push	r27
+  fe:	ef 93       	push	r30
+ 100:	ff 93       	push	r31
+	pinToggle(&PORT_LED0, PIN_LED0);
+ 102:	64 e0       	ldi	r22, 0x04	; 4
+ 104:	8b e2       	ldi	r24, 0x2B	; 43
+ 106:	90 e0       	ldi	r25, 0x00	; 0
+ 108:	0e 94 48 00 	call	0x90	; 0x90 <pinToggle>
+	
+	OVFCountL2++;
+ 10c:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <OVFCountL2>
+ 110:	90 91 03 01 	lds	r25, 0x0103	; 0x800103 <OVFCountL2+0x1>
+ 114:	01 96       	adiw	r24, 0x01	; 1
+ 116:	90 93 03 01 	sts	0x0103, r25	; 0x800103 <OVFCountL2+0x1>
+ 11a:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <OVFCountL2>
+	OVFCountL3++;
+ 11e:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 122:	30 91 01 01 	lds	r19, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 126:	2f 5f       	subi	r18, 0xFF	; 255
+ 128:	3f 4f       	sbci	r19, 0xFF	; 255
+ 12a:	30 93 01 01 	sts	0x0101, r19	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 12e:	20 93 00 01 	sts	0x0100, r18	; 0x800100 <__DATA_REGION_ORIGIN__>
+	
+	if(OVFCountL2 == OVF_TIMER_LED2){
+ 132:	c2 97       	sbiw	r24, 0x32	; 50
+ 134:	49 f4       	brne	.+18     	; 0x148 <__vector_14+0x68>
+		pinToggle(&PORT_LED1, PIN_LED1);
+ 136:	65 e0       	ldi	r22, 0x05	; 5
+ 138:	8b e2       	ldi	r24, 0x2B	; 43
+ 13a:	90 e0       	ldi	r25, 0x00	; 0
+ 13c:	0e 94 48 00 	call	0x90	; 0x90 <pinToggle>
+		OVFCountL2 = 0;
+ 140:	10 92 03 01 	sts	0x0103, r1	; 0x800103 <OVFCountL2+0x1>
+ 144:	10 92 02 01 	sts	0x0102, r1	; 0x800102 <OVFCountL2>
+	}
+	if(OVFCountL3 == OVF_TIMER_LED3){
+ 148:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 14c:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 150:	84 36       	cpi	r24, 0x64	; 100
+ 152:	91 05       	cpc	r25, r1
+ 154:	49 f4       	brne	.+18     	; 0x168 <__vector_14+0x88>
+		pinToggle(&PORT_LED2, PIN_LED2);
+ 156:	66 e0       	ldi	r22, 0x06	; 6
+ 158:	8b e2       	ldi	r24, 0x2B	; 43
+ 15a:	90 e0       	ldi	r25, 0x00	; 0
+ 15c:	0e 94 48 00 	call	0x90	; 0x90 <pinToggle>
+		OVFCountL3 = 0;
+ 160:	10 92 01 01 	sts	0x0101, r1	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 164:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <__DATA_REGION_ORIGIN__>
+	}
+	
+ 168:	ff 91       	pop	r31
+ 16a:	ef 91       	pop	r30
+ 16c:	bf 91       	pop	r27
+ 16e:	af 91       	pop	r26
+ 170:	9f 91       	pop	r25
+ 172:	8f 91       	pop	r24
+ 174:	7f 91       	pop	r23
+ 176:	6f 91       	pop	r22
+ 178:	5f 91       	pop	r21
+ 17a:	4f 91       	pop	r20
+ 17c:	3f 91       	pop	r19
+ 17e:	2f 91       	pop	r18
+ 180:	0f 90       	pop	r0
+ 182:	0f be       	out	0x3f, r0	; 63
+ 184:	0f 90       	pop	r0
+ 186:	1f 90       	pop	r1
+ 188:	18 95       	reti
+
+0000018a <_exit>:
+ 18a:	f8 94       	cli
+
+0000018c <__stop_program>:
+ 18c:	ff cf       	rjmp	.-2      	; 0x18c <__stop_program>

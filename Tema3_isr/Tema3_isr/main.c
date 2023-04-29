@@ -47,9 +47,6 @@ void init_devices(void)
 	PORTD |= (1 << PIN_BUTTON);  // asta activeaza rezistenta de pull - up
 	// ------------------------  //
 
-	// -- Activam LED-ul 0 -- //
-	PORTD |= (1 << PIN_LED0);
-	// --------------------- //
 }
 
 

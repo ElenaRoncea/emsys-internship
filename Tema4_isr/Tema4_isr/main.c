@@ -24,6 +24,13 @@
 #define BUTTON2_PORT PORTD
 #define BUTTON2_PIN PIND2
 
+int main(void)
+{
+	init_devices(); //off
+	init_intr();
+	while (1);
+}
+
 ISR(INT0_vect)
 {
 	PORT_LED0 |= (1 << PIN_LED0);
@@ -41,12 +48,6 @@ ISR(INT1_vect)
 	PORT_LED3 &= ~(1 << PIN_LED3);
 }
 
-int main(void)
-{
-	init_devices(); //off
-	init_intr();
-	while (1);
-}
 
 
 void init_intr()
