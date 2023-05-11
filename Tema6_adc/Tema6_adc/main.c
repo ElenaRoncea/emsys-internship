@@ -21,7 +21,8 @@ ISR(ADC_vect);
 #define PIN_LED1  PIND5
 
 uint16_t adcValue;
-#define compValue_adc 450
+int flag = 0;
+
 
 void init_devices(void)
 {
@@ -77,23 +78,34 @@ ISR(ADC_vect)
 {
 	adcValue = ADCL;
 	adcValue |= (uint16_t)ADCH<<8;
-	if(adcValue > compValue_adc)
-	{
-		pinSet(&PORT_LED0, PIN_LED0);
-		pinReset(&PORT_LED1, PIN_LED1);
-	}
-	else {
-		pinSet(&PORT_LED1, PIN_LED1);
-		pinReset(&PORT_LED0, PIN_LED0);
-	}
-	ADCSRA |= (1 << ADSC); // Set ADSC bit to 1 to start conversion
+	flag = 1;
 }
 
 int main(void)
 {
 	init_devices();
 	
-	while(1);
+	while(1)
+	{
+		if(flag == 1)
+		{
+			float voltage = ( adcValue * 5) / 1024; //conversia
+			if(voltage > 4)
+			{
+				pinSet(&PORT_LED0, PIN_LED0);
+				pinReset(&PORT_LED1, PIN_LED1);
+			}
+			else {
+				pinSet(&PORT_LED1, PIN_LED1);
+				pinReset(&PORT_LED0, PIN_LED0);
+			}
+		}
+		else{
+			ADSCRA |= (1 << ADSC); //pornim din nou conversia
+		}
+		
+	}
+	
 }
 
 
