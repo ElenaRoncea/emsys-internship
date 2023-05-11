@@ -2,13 +2,14 @@
 #define F_CPU 16000000UL
 
 #include <avr/io.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 void port_init(void);
 void adc_init(void);
 void init_devices(void);
+void start_conversion(void);
 
 void pinSet(volatile uint8_t *port, uint8_t pin);
 void pinReset(volatile uint8_t *port, uint8_t pin);
@@ -20,8 +21,12 @@ ISR(ADC_vect);
 #define PORT_LED1 PORTD
 #define PIN_LED1  PIND5
 
+#define voltage_ref 5
+#define compValue 3
+#define resValue 1024 //full scale for 10-bit resolution (2^10)
+
 uint16_t adcValue;
-int flag = 0;
+bool flag = 0;
 
 
 void init_devices(void)
@@ -60,12 +65,13 @@ void adc_init(void){
 	//disable analog comparator
 	ACSR |= (1 << ACD); // Set ACD bit(from ACSR) to 1 to disable the Analog Comparator
 	
-	
 	//Enable ADC interrupts
 	ADCSRA |= (1 << ADIE);
 	sei();
+	
 	//Set the prescaler
 	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (0 << ADPS0) ; //64
+	
 	//Enable ADC
 	ADCSRA |= (1 << ADEN); //Set ADEN bit to 1 to enable adc
 	
@@ -73,12 +79,17 @@ void adc_init(void){
 	ADCSRA |= (1 << ADSC); // Set ADSC bit to 1 to start conversion
 }
 
+void start_conversion(void){
+	ADCSRA |= (1 << ADSC);
+}
+
 
 ISR(ADC_vect)
 {
+	//get ADC value
 	adcValue = ADCL;
 	adcValue |= (uint16_t)ADCH<<8;
-	flag = 1;
+	flag = 1; //conversion done
 }
 
 int main(void)
@@ -89,25 +100,22 @@ int main(void)
 	{
 		if(flag == 1)
 		{
-			float voltage = ( adcValue * 5) / 1024; //conversia
-			if(voltage > 4)
+			float voltage = ( adcValue * voltage_ref) / resValue; //conversion formula
+			if(voltage < compValue)
 			{
-				pinSet(&PORT_LED0, PIN_LED0);
-				pinReset(&PORT_LED1, PIN_LED1);
+				pinSet(&PORT_LED0, PIN_LED0); //Turn on LED0
+				pinReset(&PORT_LED1, PIN_LED1); //Turn off LED1
 			}
 			else {
-				pinSet(&PORT_LED1, PIN_LED1);
-				pinReset(&PORT_LED0, PIN_LED0);
+				pinSet(&PORT_LED1, PIN_LED1); //Turn on LED1
+				pinReset(&PORT_LED0, PIN_LED0); //Turn off LED0
 			}
+			flag = 0;
+			start_conversion();
 		}
-		else{
-			ADSCRA |= (1 << ADSC); //pornim din nou conversia
-		}
-		
+			
 	}
-	
 }
-
 
 void pinSet(volatile uint8_t *port, uint8_t pin){
 	*port |=  1 << pin;
