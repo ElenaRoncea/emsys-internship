@@ -14,20 +14,14 @@
 
 void USART_Init(unsigned int ubrr); //initializare registrii si baud rate
 void USART_Transmit(unsigned char data);
-
+void USART_Transmit_string(char *string);
 uint8_t data;
 
 int main(void)
 {
 	USART_Init(MYUBRR);
-	USART_Transmit(84);//T 
-	_delay_ms(1000);
-	USART_Transmit(69);//E
-	_delay_ms(1000);
-	USART_Transmit(83);//S
-	_delay_ms(1000);
-	USART_Transmit(84);//T
-	
+	char message[] = "Hello world! ";
+	USART_Transmit_string(message);
 	
 	while (1);
 }
@@ -54,6 +48,15 @@ void USART_Transmit(unsigned char data)
 	UDR0 = data;
 }
 
+  void USART_Transmit_string(char *string)//functie care ia un sir de caractere si extrage cate un caracter pe rand, pana la terminarea sirului
+  {
+	  while(*string!= 0x00)
+	  {
+		  USART_Transmit(*string);
+		  string++;
+	  }
+	  
+  }
 
 
 
