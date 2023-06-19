@@ -140,9 +140,7 @@ void USART_Transmit(unsigned char data)
   cc:	08 95       	ret
 
 000000ce <USART_Transmit_string>:
-		i++;
-	}
-}*/
+}
 
   void USART_Transmit_string(char *string)//functie care ia un sir de caractere si extrage cate un caracter pe rand, pana la terminarea sirului
   {
@@ -156,8 +154,8 @@ void USART_Transmit(unsigned char data)
   d6:	0e 94 60 00 	call	0xc0	; 0xc0 <USART_Transmit>
 		  string++;
   da:	21 96       	adiw	r28, 0x01	; 1
-	}
-}*/
+	UDR0 = data;
+}
 
   void USART_Transmit_string(char *string)//functie care ia un sir de caractere si extrage cate un caracter pe rand, pana la terminarea sirului
   {
@@ -176,7 +174,7 @@ void USART_Transmit(unsigned char data)
   e6:	08 95       	ret
 
 000000e8 <main>:
-//void USART_TransmitString(char* string);
+void USART_Transmit(unsigned char data);
 void USART_Transmit_string(char *string);
 uint8_t data;
 
