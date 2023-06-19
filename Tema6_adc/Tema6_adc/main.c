@@ -140,14 +140,6 @@ void pinReset(volatile uint8_t *port, uint8_t pin){
 }
 
 
-
-ISR(USART_RX_vect)
-{
-	
-	 UDR0 = data;
-}
-
-
 void USART_Init(unsigned int ubrr)
 {
 	//set baud rate
@@ -159,7 +151,7 @@ void USART_Init(unsigned int ubrr)
 	
 	//setez frame format : 8 data , 1 bit stop
 	UCSR0C = (0<<USBS0)|(3<<UCSZ00);
-	sei();
+	
 }
 
 void USART_Transmit(unsigned char data)
